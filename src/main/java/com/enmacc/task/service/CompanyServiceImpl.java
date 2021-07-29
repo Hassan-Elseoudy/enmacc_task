@@ -30,12 +30,13 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     /**
-     * create contract
+     * create company
      *
-     * @param contractDto@return Contract
+     * @param companyDto
+     * @return Contract
      */
     @Override
-    public Company createOne(AddCompanyDto contractDto) {
-        return null;
+    public Company createOne(AddCompanyDto companyDto) {
+        return companyRepository.save(AddCompanyDto.toModel(companyDto));
     }
 }

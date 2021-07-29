@@ -3,10 +3,10 @@ package com.enmacc.task.service;
 import com.enmacc.task.model.Contract;
 import com.enmacc.task.model.dto.AddContractDto;
 import com.enmacc.task.repository.ContractRepository;
-import com.sun.tools.javac.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -45,8 +45,8 @@ public class ContractServiceImpl implements ContractService {
         fromContract.setTo(companyService.getOne(contractDto.getToCompany()));
 
         Contract toContract = new Contract();
-        toContract.setFrom(companyService.getOne(contractDto.getFromCompany()));
-        toContract.setTo(companyService.getOne(contractDto.getToCompany()));
+        toContract.setFrom(companyService.getOne(contractDto.getToCompany()));
+        toContract.setTo(companyService.getOne(contractDto.getFromCompany()));
 
 
         return contractRepository.saveAll(List.of(fromContract, toContract)).get(0);
