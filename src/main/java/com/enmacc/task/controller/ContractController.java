@@ -28,6 +28,7 @@ public class ContractController {
      * @return The persisted contract
      */
     @PostMapping(path = "/contracts")
+    //TODO: Maybe I should add Swagger Example of how you can create company.
     public ResponseEntity<ContractResponseDtoV1> addContract(@RequestBody AddContractDto contract) {
         return ResponseEntity.created(URI.create(contractService.createOne(contract).getId().toString())).build();
     }

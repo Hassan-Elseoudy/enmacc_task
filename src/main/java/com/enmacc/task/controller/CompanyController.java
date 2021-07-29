@@ -28,6 +28,7 @@ public class CompanyController {
      * @return The persisted company
      */
     @PostMapping
+    //TODO: Maybe I should add Swagger Example of how you can create company.
     public ResponseEntity<CompanyResponseDtoV1> createCompany(@RequestBody AddCompanyDto companyDto) {
         CompanyResponseDtoV1 responseDtoV1 = CompanyResponseDtoV1.toDto(companyService.createOne(companyDto));
         return ResponseEntity

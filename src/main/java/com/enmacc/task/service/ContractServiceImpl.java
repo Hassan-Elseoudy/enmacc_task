@@ -42,6 +42,7 @@ public class ContractServiceImpl implements ContractService {
      * @return Contract
      */
     @Override
+    //TODO: I should check If I have the contract before.
     public Contract createOne(AddContractDto contractDto) {
         Contract fromContract = new Contract();
         fromContract.setFrom(companyService.getOne(contractDto.getFromCompany()));
@@ -59,6 +60,7 @@ public class ContractServiceImpl implements ContractService {
      * @return list of contracts
      */
     @Override
+    //TODO: Needs pagination!
     public List<Contract> getAllContracts() {
         return contractRepository.findAll();
     }

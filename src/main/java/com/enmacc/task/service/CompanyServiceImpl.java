@@ -25,6 +25,7 @@ public class CompanyServiceImpl implements CompanyService {
      * @return Contract
      */
     @Override
+    //TODO: That's not the best way of getting entity from the database, error handling to return 404 should be a solution.
     public Company getOne(Long id) {
         return companyRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
