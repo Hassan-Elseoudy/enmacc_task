@@ -1,15 +1,13 @@
 package com.enmacc.task.controller;
 
 import com.enmacc.task.model.Company;
+import com.enmacc.task.model.dto.AddCompanyDto;
 import com.enmacc.task.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-import com.enmacc.task.model.dto.AddCompanyDto;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/companies")
@@ -28,10 +26,9 @@ public class CompanyController {
      * @param companyDto The company to persist
      * @return The persisted company
      */
-    @PostMapping(path = "/contracts")
-    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
     public ResponseEntity<Company> createCompany(AddCompanyDto companyDto) {
-        return ResponseEntity.ok(companyService.createOne(companyDto));
+        return ResponseEntity.created(URI.create(companyService.createOne(companyDto).getId().toString())).build();
     }
 
     /**
@@ -40,9 +37,8 @@ public class CompanyController {
      * @param id The id of the company
      * @return The persisted company.
      */
-    @PostMapping(path = "/contracts")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Company> getCompany(Long id) {
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Company> getCompany(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok(companyService.getOne(id));
     }
 
