@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class Graph {
 
     private Integer v;
-    private ArrayList[] adjList;
+    private ArrayList<Integer>[] adjList;
 
     public Graph(Integer vertices) {
         this.v = vertices;
