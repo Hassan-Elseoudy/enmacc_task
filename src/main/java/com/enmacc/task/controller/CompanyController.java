@@ -2,6 +2,7 @@ package com.enmacc.task.controller;
 
 import com.enmacc.task.model.Company;
 import com.enmacc.task.model.dto.AddCompanyDto;
+import com.enmacc.task.model.dto.CompanyResponseDtoV1;
 import com.enmacc.task.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +28,11 @@ public class CompanyController {
      * @return The persisted company
      */
     @PostMapping
-    public ResponseEntity<Company> createCompany(@RequestBody AddCompanyDto companyDto) {
-        return ResponseEntity.created(URI.create(companyService.createOne(companyDto).getId().toString())).build();
+    public ResponseEntity<CompanyResponseDtoV1> createCompany(@RequestBody AddCompanyDto companyDto) {
+        CompanyResponseDtoV1 responseDtoV1 = CompanyResponseDtoV1.toDto(companyService.createOne(companyDto));
+        return ResponseEntity
+                .created(URI.create(responseDtoV1.getId().toString()))
+                .body(responseDtoV1);
     }
 
     /**
