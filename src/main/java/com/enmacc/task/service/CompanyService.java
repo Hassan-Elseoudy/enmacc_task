@@ -1,6 +1,7 @@
 package com.enmacc.task.service;
 
 import com.enmacc.task.model.Company;
+import com.enmacc.task.model.dto.AddCompanyDto;
 
 public interface CompanyService {
 
