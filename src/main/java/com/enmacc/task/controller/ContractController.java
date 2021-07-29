@@ -1,17 +1,28 @@
 package com.enmacc.task.controller;
 
 import com.enmacc.task.model.Contract;
+import com.enmacc.task.model.dto.AddContractDto;
+import com.enmacc.task.service.ContractService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import com.enmacc.task.model.dto.AddContractDto;
+
+import java.net.URI;
 import java.util.List;
 
 @RestController
 public class ContractController {
+
+    private final ContractService contractService;
+
+    @Autowired
+    public ContractController(ContractService contractService) {
+        this.contractService = contractService;
+    }
 
     /**
      * Persists the given contract in the database.
@@ -20,12 +31,8 @@ public class ContractController {
      * @return The persisted contract
      */
     @PostMapping(path = "/contracts")
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Contract> addContract(AddContractDto contract) {
-
-        // TODO implement
-
-        throw new IllegalStateException("implementation missing");
+        return ResponseEntity.created(URI.create(contractService.createOne(contract).getId().toString())).build();
     }
 
     /**
