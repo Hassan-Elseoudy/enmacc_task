@@ -11,3 +11,5 @@
 - [ ] Dockerizing.
 - [ ] Paging and Sorting
 - [ ] Adding environments.
+- [ ] Error Handling.
+- [ ] i18n
