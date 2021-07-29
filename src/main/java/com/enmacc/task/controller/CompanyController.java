@@ -27,7 +27,7 @@ public class CompanyController {
      * @return The persisted company
      */
     @PostMapping
-    public ResponseEntity<Company> createCompany(AddCompanyDto companyDto) {
+    public ResponseEntity<Company> createCompany(@RequestBody AddCompanyDto companyDto) {
         return ResponseEntity.created(URI.create(companyService.createOne(companyDto).getId().toString())).build();
     }
 
