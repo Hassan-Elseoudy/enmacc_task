@@ -1,5 +1,6 @@
 package com.enmacc.task.model.dto;
 
+import com.enmacc.task.model.Company;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,4 +14,12 @@ public class AddCompanyDto {
 
     @NotEmpty
     private String name;
+
+    public static Company toModel(AddCompanyDto companyDto) {
+        Company company = new Company();
+        company.setContractsFrom(null);
+        company.setContractsTo(null);
+        company.setName(companyDto.getName());
+        return company;
+    }
 }
