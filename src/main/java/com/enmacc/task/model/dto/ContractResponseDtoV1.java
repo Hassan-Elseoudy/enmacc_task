@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 public class ContractResponseDtoV1 {
 
     private Long id;
-    private String from;
-    private String to;
+    private String firstEnd;
+    private String secondEnd;
 
     public static ContractResponseDtoV1 toDto(Contract contract) {
-        return new ContractResponseDtoV1(contract.getId(), contract.getFrom().getName(), contract.getTo().getName());
+        return new ContractResponseDtoV1(contract.getId(), contract.getFirstEnd().getName(), contract.getSecondEnd().getName());
     }
 
 }

@@ -17,8 +17,6 @@ public class AddCompanyDto {
 
     public static Company toModel(AddCompanyDto companyDto) {
         Company company = new Company();
-        company.setContractsFrom(null);
-        company.setContractsTo(null);
         company.setName(companyDto.getName());
         return company;
     }
