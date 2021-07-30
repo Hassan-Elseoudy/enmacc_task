@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 public class ContractController {
@@ -29,7 +32,7 @@ public class ContractController {
      */
     @PostMapping(path = "/contracts")
     //TODO: Maybe I should add Swagger Example of how you can create company.
-    public ResponseEntity<ContractResponseDtoV1> addContract(@RequestBody AddContractDto contract) {
+    public ResponseEntity<ContractResponseDtoV1> addContract(@Valid @RequestBody AddContractDto contract) {
         return ResponseEntity.created(URI.create(contractService.createOne(contract).getId().toString())).build();
     }
 
@@ -43,6 +46,16 @@ public class ContractController {
     @GetMapping(path = "/sleeves")
     public ResponseEntity<Set<String>> getAllPossibleSleeves(@RequestParam(name = "aCompany") Long aCompany, @RequestParam(name = "bCompany") Long bCompany) {
         return ResponseEntity.ok(new HashSet<>(contractService.getAllSleeves(aCompany, bCompany)));
+    }
+
+    /**
+     * Computes all contracts stored in the database (Not Paginated yet).
+     *
+     * @return The list of contracts.
+     */
+    @GetMapping(path = "/contracts")
+    public ResponseEntity<List<ContractResponseDtoV1>> getAllContracts() {
+        return ResponseEntity.ok((contractService.getAllContracts().stream().map(ContractResponseDtoV1::toDto)).collect(Collectors.toList()));
     }
 
 }

@@ -14,5 +14,8 @@
 - [ ] Adding environments.
 - [ ] Error Handling.
 - [ ] i18n
+- [ ] Automapper
+- [ ] Security
+- [ ] Logs
 
 I will also add ```//TODO``` in areas which I believe It can be enhanced.
