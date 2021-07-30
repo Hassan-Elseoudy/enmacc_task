@@ -1,4 +1,4 @@
-package com.enmacc.task.controller;
+package com.enmacc.task.util;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
