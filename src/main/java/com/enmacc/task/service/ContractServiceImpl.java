@@ -7,9 +7,9 @@ import com.enmacc.task.repository.ContractRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,28 +32,23 @@ public class ContractServiceImpl implements ContractService {
      */
     @Override
     public Contract getOne(Long id) {
-        return contractRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        return contractRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Didn't find company with specified {id = " + id + "}"));
     }
 
     /**
      * create contract using bi-directional role.
      *
-     * @param contractDto
+     * @param contractDto contract dto
      * @return Contract
      */
     @Override
     //TODO: I should check If I have the contract before.
+    //TODO: Enhanced, only save 1 contract in the DB.
     public Contract createOne(AddContractDto contractDto) {
-        Contract fromContract = new Contract();
-        fromContract.setFrom(companyService.getOne(contractDto.getFromCompany()));
-        fromContract.setTo(companyService.getOne(contractDto.getToCompany()));
-
-        Contract toContract = new Contract();
-        toContract.setFrom(companyService.getOne(contractDto.getToCompany()));
-        toContract.setTo(companyService.getOne(contractDto.getFromCompany()));
-
-
-        return contractRepository.saveAll(List.of(fromContract, toContract)).get(0);
+        Contract contract = new Contract();
+        contract.setFirstEnd(companyService.getOne(contractDto.getFromCompany()));
+        contract.setSecondEnd(companyService.getOne(contractDto.getToCompany()));
+        return contractRepository.save(contract);
     }
 
     /**
@@ -74,24 +69,28 @@ public class ContractServiceImpl implements ContractService {
     public List<String> getAllSleeves(Long source, Long destination) {
         List<Contract> contracts = getAllContracts();
         Graph g = new Graph(contracts.size());
-        contracts.forEach(contract -> g.addEdge(contract.getFrom().getId().intValue(), contract.getTo().getId().intValue()));
+        contracts.forEach(contract -> {
+                    g.addEdge(contract.getFirstEnd().getId().intValue(), contract.getSecondEnd().getId().intValue());
+                    g.addEdge(contract.getSecondEnd().getId().intValue(), contract.getFirstEnd().getId().intValue());
+                }
+        );
         return findAllPaths(source.intValue(), destination.intValue(), g, new ArrayList<>());
     }
 
     /**
      * find all paths from source to destination.
      *
-     * @param source
-     * @param destinatino
-     * @param graph
-     * @param paths
-     * @return
+     * @param source      source node
+     * @param destination destination node
+     * @param graph       graph instance
+     * @param paths       List of paths as string
+     * @return paths
      */
-    public List<String> findAllPaths(int source, int destinatino, Graph graph, List<String> paths) {
+    public List<String> findAllPaths(int source, int destination, Graph graph, List<String> paths) {
         boolean[] isVisited = new boolean[graph.getV()];
         ArrayList<Integer> pathList = new ArrayList<>();
         pathList.add(source);
-        dfs(source, destinatino, isVisited, pathList, graph, paths);
+        dfs(source, destination, isVisited, pathList, graph, paths);
         return paths;
     }
 

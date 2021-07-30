@@ -6,7 +6,7 @@ import com.enmacc.task.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
+import javax.persistence.EntityNotFoundException;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
@@ -25,15 +25,14 @@ public class CompanyServiceImpl implements CompanyService {
      * @return Contract
      */
     @Override
-    //TODO: That's not the best way of getting entity from the database, error handling to return 404 should be a solution.
     public Company getOne(Long id) {
-        return companyRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        return companyRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Didn't find company with specified {id = " + id + "}"));
     }
 
     /**
      * create company
      *
-     * @param companyDto
+     * @param companyDto company dto request.
      * @return Contract
      */
     @Override
