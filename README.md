@@ -11,8 +11,8 @@
 - [ ] Tests.
 - [ ] Dockerizing.
 - [ ] Paging and Sorting
-- [ ] Adding environments.
-- [ ] Error Handling.
+- [X] Adding environments.
+- [X] Error Handling.
 - [ ] i18n
 - [ ] Automapper
 - [ ] Security
