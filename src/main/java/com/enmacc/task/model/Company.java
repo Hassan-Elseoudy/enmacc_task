@@ -17,10 +17,10 @@ public class Company {
 
     private String name;
 
-    @OneToMany(mappedBy="to")
-    private List<Contract> contractsTo;
+    @OneToMany(mappedBy="firstEnd")
+    private List<Contract> outgoingContracts;
 
-    @OneToMany(mappedBy="from")
-    private List<Contract> contractsFrom;
+    @OneToMany(mappedBy="secondEnd")
+    private List<Contract> ingoingContracts;
 
 }

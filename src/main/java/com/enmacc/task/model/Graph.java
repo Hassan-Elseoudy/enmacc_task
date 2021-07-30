@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 @Data
 @AllArgsConstructor
@@ -13,12 +13,12 @@ import java.util.Arrays;
 public class Graph {
 
     private Integer v;
-    private ArrayList<Integer>[] adjList;
+    private HashSet<Integer>[] adjList;
 
     public Graph(Integer vertices) {
         this.v = vertices;
-        this.adjList = new ArrayList[this.v];
-        Arrays.stream(this.adjList).forEach(adj -> adj = new ArrayList<>());
+        this.adjList = new HashSet[this.v];
+        Arrays.stream(this.adjList).forEach(adj -> adj = new HashSet<>());
     }
 
     public void addEdge(Integer u, Integer v) {

@@ -17,10 +17,10 @@ public class Contract {
 
     @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn
-    private Company from;
+    private Company firstEnd;
 
     @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn
-    private Company to;
+    private Company secondEnd;
 
 }
