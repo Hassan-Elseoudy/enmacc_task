@@ -68,7 +68,7 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public List<String> getAllSleeves(Long source, Long destination) {
         List<Contract> contracts = getAllContracts();
-        Graph g = new Graph(contracts.size());
+        Graph g = new Graph(companyService.getNumberOfCompanies().intValue() + 1);
         contracts.forEach(contract -> {
                     g.addEdge(contract.getFirstEnd().getId().intValue(), contract.getSecondEnd().getId().intValue());
                     g.addEdge(contract.getSecondEnd().getId().intValue(), contract.getFirstEnd().getId().intValue());
