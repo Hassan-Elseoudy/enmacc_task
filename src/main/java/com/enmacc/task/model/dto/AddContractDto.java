@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
 
 @Data
-@NoArgsConstructor
+@NoArgsConstructor //TODO: Optimization
 @AllArgsConstructor
 public class AddContractDto {
 
